@@ -1,0 +1,110 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    Sign Up Form (Template-driven approach)
+  </div>
+
+  <div class="panel-body">
+    <form class="form-horizontal"
+          novalidate autocomplete="off"
+          #signupForm="ngForm">
+      <fieldset>
+        <div class="form-group"
+             [ngClass]="{'has-error': (firstName.touched || firstName.dirty) && firstName.invalid }">
+
+          <label class="col-md-2 control-label">First Name *</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   type="text"
+                   required
+                   [(ngModel)]="user.firstName"
+                   name="firstName"
+                   #firstName="ngModel"/>
+            <span class="help-block" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
+                <span *ngIf="firstName.errors?.required">
+                    First name is required
+                </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{'has-error': (lastName.touched || lastName.dirty) && lastName.invalid }">
+
+          <label class="col-md-2 control-label">Last Name *</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="lastNameId"
+                   type="text"
+                   required
+                   [(ngModel)]="user.lastName"
+                   name="lastName"
+                   #lastName="ngModel"/>
+            <span class="help-block" *ngIf="(lastName.touched || lastName.dirty) && lastName?.errors">
+                <span *ngIf="lastName.errors?.required">
+                    Last name is required
+                </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{'has-error': (email.touched || email.dirty) && email.invalid }">
+          <label class="col-md-2 control-label">Email *</label>
+
+          <div class="col-md-8">
+            <input class="form-control"
+                   type="email"
+                   required
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+"
+                   [(ngModel)]="user.email"
+                   name="email"
+                   #email="ngModel"/>
+            <span class="help-block" *ngIf="(email.touched || email.dirty) && email.errors">
+                <span *ngIf="email.errors?.required">
+                    Email is required.
+                </span>
+                <span *ngIf="email.errors?.pattern">
+                    Email format is invalid
+                </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group"
+             [ngClass]="{'has-error': (password.touched || password.dirty) && password.invalid }">
+          <label class="col-md-2 control-label">Password *</label>
+
+          <div class="col-md-8">
+            <input class="form-control"
+                   type="password"
+                   required
+                   minlength="6"
+                   [(ngModel)]="user.password"
+                   name="password"
+                   #password="ngModel"/>
+            <span class="help-block" *ngIf="(password.touched || password.dirty) && password.errors">
+                <span *ngIf="password.errors?.required">
+                    Password is required
+                </span>
+                <span *ngIf="password.errors?.minlength">
+                    Password must be at least 6 characters
+                </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary"
+                    (click)="save()"
+                    [disabled]="signupForm.invalid">
+              Submit
+            </button>
+          </div>
+        </div>
+      </fieldset>
+
+      <pre> {{signupForm.value | json}}</pre>
+    </form>
+  </div>
+</div>
